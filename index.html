@@ -420,6 +420,35 @@
     z-index: 99;
   }
 
+  /* Character avatar */
+  .character-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+  .character-avatar.size-card {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.2rem;
+    border: 2px solid var(--card-accent);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .character-avatar.size-detail {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 1.6rem;
+    border: 3px solid var(--bot-color);
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.04), 0 0 60px var(--bot-color);
+  }
+  .character-avatar.size-mini {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    border: 1.5px solid var(--bot-color, var(--accent-1));
+  }
+
   /* Chat scenario */
   .scenarios-grid {
     display: grid;
@@ -540,19 +569,19 @@
 
       <div class="bot-grid">
         <div class="bot-card" data-accent="1">
-          <div class="bot-icon">⚖️</div>
+          <img class="character-avatar size-card" src="assets/esther.jpg" alt="에스더" />
           <div class="bot-name">에스더</div>
           <div class="bot-tagline">AI 변호사</div>
           <p class="bot-desc">계약서 작성·검토와 법률 상담을 Slack에서. 7종 템플릿 자동 작성, 첨부 계약서 검토.</p>
         </div>
         <div class="bot-card" data-accent="2">
-          <div class="bot-icon">🌸</div>
+          <img class="character-avatar size-card" src="assets/mari.jpg" alt="마리" />
           <div class="bot-name">마리</div>
           <div class="bot-tagline">경영지원 AI</div>
           <p class="bot-desc">직원·장비 관리, 세금계산서, 사내 일정 리마인더, 병원 증빙·건의사항 접수.</p>
         </div>
         <div class="bot-card" data-accent="3">
-          <div class="bot-icon">📅</div>
+          <img class="character-avatar size-card" src="assets/hahn.jpg" alt="이하은" />
           <div class="bot-name">이하은</div>
           <div class="bot-tagline">비서실장</div>
           <p class="bot-desc">캘린더 일정 관리, 회의록 자동 작성, 음성 녹음 전사, 문자 발송까지 한 번에.</p>
@@ -572,7 +601,7 @@
     <div class="slide-inner" style="--bot-color: #6366f1;">
       <div class="detail-layout">
         <div>
-          <div class="detail-icon-wrap">⚖️</div>
+          <img class="character-avatar size-detail" src="assets/esther.jpg" alt="에스더" />
           <div class="detail-tagline">BOT 01 · AI 변호사</div>
           <h2 class="detail-name">에스더</h2>
           <p class="detail-summary">
@@ -765,7 +794,7 @@
     <div class="slide-inner" style="--bot-color: #8b5cf6;">
       <div class="detail-layout">
         <div>
-          <div class="detail-icon-wrap">🌸</div>
+          <img class="character-avatar size-detail" src="assets/mari.jpg" alt="마리" />
           <div class="detail-tagline">BOT 02 · 경영지원 AI</div>
           <h2 class="detail-name">마리 (MaRi)</h2>
           <p class="detail-summary">
@@ -1120,7 +1149,7 @@
     <div class="slide-inner" style="--bot-color: #ec4899;">
       <div class="detail-layout">
         <div>
-          <div class="detail-icon-wrap">📅</div>
+          <img class="character-avatar size-detail" src="assets/hahn.jpg" alt="이하은" />
           <div class="detail-tagline">BOT 03 · 비서실장</div>
           <h2 class="detail-name">이하은</h2>
           <p class="detail-summary">
