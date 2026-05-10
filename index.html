@@ -51,6 +51,9 @@
     transform: translateX(40px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    /* 세로 스크롤은 항상 네이티브로, 가로 스와이프만 JS가 처리 */
+    touch-action: pan-y;
+    overscroll-behavior: contain;
   }
 
   .slide.active {
@@ -535,9 +538,17 @@
   }
 
   @media (max-width: 600px) {
-    /* Layout — 모바일 패딩 축소, 하단 nav 공간 확보 */
-    .slide { padding: 4vh 5vw 12vh; }
+    /* Layout — 상단 progress bar 여유 + 하단 nav 가림 방지 (safe-area + 100px 보장) */
+    .slide {
+      padding-top: 4vh;
+      padding-right: 5vw;
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+      padding-left: 5vw;
+    }
     .slide-inner { width: 100%; }
+
+    /* 상단 라벨은 모바일에서 콘텐츠와 겹치므로 숨김 (하단 카운터로 대체) */
+    .slide-label { display: none; }
 
     /* Typography */
     .cover-eyebrow { font-size: 0.72rem; letter-spacing: 0.3em; margin-bottom: 1.2rem; }
@@ -606,14 +617,6 @@
     }
     .nav-btn { width: 36px; height: 36px; font-size: 0.95rem; }
     .nav-counter { font-size: 0.78rem; padding: 0 0.5rem; }
-
-    /* Slide label — 좌상단 안전영역 */
-    .slide-label {
-      top: max(1.2rem, env(safe-area-inset-top, 1.2rem));
-      left: 1.2rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-    }
 
     /* Inline grid override — 슬라이드 내부 수동 grid를 단일 컬럼으로 */
     [style*="grid-template-columns:repeat(3,1fr)"],
