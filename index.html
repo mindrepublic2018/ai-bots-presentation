@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0e1a" />
 <title>마인드리퍼블릭 AI 봇 소개</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,14 +43,14 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     padding: 5vh 8vw;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease, transform 0.5s ease;
     transform: translateX(40px);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .slide.active {
@@ -531,6 +532,99 @@
     .detail-layout { grid-template-columns: 1fr; gap: 2rem; }
     .bot-grid, .apps-grid, .scenarios-grid { grid-template-columns: 1fr; }
     .slide { padding: 4vh 6vw; }
+  }
+
+  @media (max-width: 600px) {
+    /* Layout — 모바일 패딩 축소, 하단 nav 공간 확보 */
+    .slide { padding: 4vh 5vw 12vh; }
+    .slide-inner { width: 100%; }
+
+    /* Typography */
+    .cover-eyebrow { font-size: 0.72rem; letter-spacing: 0.3em; margin-bottom: 1.2rem; }
+    .cover-title { font-size: clamp(2rem, 9vw, 3rem); }
+    .cover-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    .cover-meta { font-size: 0.82rem; padding: 0.5rem 1rem; }
+
+    .section-eyebrow { font-size: 0.7rem; padding: 0.3rem 0.8rem; margin-bottom: 0.8rem; letter-spacing: 0.2em; }
+    .section-title { font-size: clamp(1.6rem, 7vw, 2.2rem) !important; }
+    .section-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem !important; }
+
+    .detail-tagline { font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+    .detail-name { font-size: clamp(1.9rem, 9vw, 2.8rem); margin-bottom: 0.4rem; }
+    .detail-summary { font-size: 1rem; margin-bottom: 1.4rem; }
+
+    .closing-title { font-size: clamp(2rem, 9vw, 3rem); }
+    .closing-sub { font-size: 1.05rem; margin-bottom: 1.8rem; }
+    .closing-cta { padding: 1.2rem 1.6rem; }
+    .closing-cta-value { font-size: 1.15rem; }
+
+    /* Avatars */
+    .character-avatar.size-detail {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.04), 0 0 30px var(--bot-color);
+    }
+    .character-avatar.size-card { width: 52px; height: 52px; margin-bottom: 1rem; }
+
+    /* Cards / lists */
+    .bot-card { padding: 1.4rem; }
+    .bot-icon { width: 48px; height: 48px; font-size: 1.5rem; margin-bottom: 1rem; }
+    .bot-name { font-size: 1.4rem; }
+    .bot-tagline { font-size: 0.85rem; margin-bottom: 0.7rem; }
+    .bot-desc { font-size: 0.92rem; }
+    .bot-grid { gap: 1rem; }
+
+    .feature-list { gap: 0.6rem; }
+    .feature-list li { padding: 0.75rem 0.95rem; font-size: 0.9rem; }
+
+    .examples { gap: 0.45rem; }
+    .example { padding: 0.7rem 0.9rem; font-size: 0.82rem; }
+
+    .scenarios-grid { gap: 0.9rem; }
+    .chat-mockup { padding: 0.95rem; gap: 0.45rem; border-radius: 12px; }
+    .chat-header { padding-bottom: 0.55rem; gap: 0.5rem; }
+    .chat-header-title { font-size: 0.7rem; letter-spacing: 0.12em; }
+    .chat-msg { font-size: 0.82rem; padding: 0.55rem 0.75rem; }
+    .chat-meta { font-size: 0.65rem; }
+
+    .apps-grid { gap: 0.8rem; }
+    .app-card { padding: 1.2rem; }
+    .app-emoji { font-size: 1.7rem; }
+    .app-title { font-size: 1.05rem; }
+    .app-desc { font-size: 0.85rem; }
+
+    /* Background orbs — 모바일 퍼포먼스 */
+    .bg-orb { opacity: 0.18; filter: blur(80px); }
+    .bg-orb-1, .bg-orb-2 { width: 280px; height: 280px; }
+
+    /* Navigation — 하단 안전영역 + 작은 버튼 */
+    .nav {
+      padding: 0.5rem 0.6rem;
+      bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+      gap: 0.4rem;
+    }
+    .nav-btn { width: 36px; height: 36px; font-size: 0.95rem; }
+    .nav-counter { font-size: 0.78rem; padding: 0 0.5rem; }
+
+    /* Slide label — 좌상단 안전영역 */
+    .slide-label {
+      top: max(1.2rem, env(safe-area-inset-top, 1.2rem));
+      left: 1.2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* Inline grid override — 슬라이드 내부 수동 grid를 단일 컬럼으로 */
+    [style*="grid-template-columns:repeat(3,1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"],
+    [style*="grid-template-columns:1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Cover orbs 좀 더 작게 */
+    .cover { padding-top: 2vh; }
   }
 </style>
 </head>
@@ -1910,13 +2004,19 @@
     }
   });
 
-  // Touch swipe
-  let touchStartX = 0;
-  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  // Touch swipe — 가로 스와이프가 세로보다 명확히 우세할 때만 슬라이드 이동 (스크롤 충돌 방지)
+  let touchStartX = 0, touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
   document.addEventListener('touchend', (e) => {
     const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
-  });
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      show(idx + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
 
   show(0);
 </script>
