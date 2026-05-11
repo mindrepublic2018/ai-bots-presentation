@@ -1757,7 +1757,8 @@
 
       <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(6,182,212,0.2);background:#000;">
         <iframe
-          src="https://www.tella.tv/video/vid_cmp0052il000907j51dmgber0/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=1&wt=1&o=1"
+          data-src="https://www.tella.tv/video/vid_cmp0052il000907j51dmgber0/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=1&wt=1&o=1"
+          src="about:blank"
           width="800" height="450"
           style="position:absolute;inset:0;width:100%;height:100%;border:0;"
           allow="autoplay; fullscreen"
@@ -1781,7 +1782,33 @@
 
       <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(6,182,212,0.2);background:#000;">
         <iframe
-          src="https://www.tella.tv/video/vid_cmp0mgr58000707jgdhlm2rod/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=1&wt=1&o=1"
+          data-src="https://www.tella.tv/video/vid_cmp0mgr58000707jgdhlm2rod/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=1&wt=1&o=1"
+          src="about:blank"
+          width="800" height="450"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowtransparency
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <p style="margin-top:1.2rem;text-align:center;color:var(--text-tertiary);font-size:0.9rem;">
+        🎬 자동 재생 (음소거 시작) — 영상 컨트롤에서 🔊 클릭 시 소리 켜짐
+      </p>
+    </div>
+  </div>
+
+  <!-- 6-3-3. Apps Script demo video: 입금요청 처리 -->
+  <div class="slide">
+    <div class="slide-inner" style="--bot-color: #06b6d4;">
+      <span class="section-eyebrow" style="color:#06b6d4;background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);">시트 자동화 · 실제 시연 영상</span>
+      <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);">입금요청 처리</h2>
+      <p class="section-subtitle" style="margin-bottom:1.5rem;">입금요청 다이얼로그를 어떻게 사용하는지 확인하세요.</p>
+
+      <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(6,182,212,0.2);background:#000;">
+        <iframe
+          data-src="https://www.tella.tv/video/vid_cmp0o54mz002707kre7f80wn6/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=1&wt=1&o=1"
+          src="about:blank"
           width="800" height="450"
           style="position:absolute;inset:0;width:100%;height:100%;border:0;"
           allow="autoplay; fullscreen"
@@ -2005,15 +2032,16 @@
     slideLabel.textContent = 'SLIDE ' + String(idx + 1).padStart(2, '0');
     prevBtn.disabled = idx === 0;
     nextBtn.disabled = idx === total - 1;
-    // 슬라이드 전환 시 영상(iframe) 재생 정지 + 신규 슬라이드 영상은 처음부터 재시작
+    // 영상 lazy-load — 해당 슬라이드 도달 시에만 영상 로드/재생, 떠나면 완전 언로드
     if (prevIdx !== idx) {
-      const reset = (slide) => slide.querySelectorAll('iframe').forEach(f => {
-        const src = f.src;
-        f.src = '';
-        f.src = src;
+      // 떠나는 슬라이드: about:blank로 교체 → 영상 완전 정지 + 네트워크 해제
+      slides[prevIdx].querySelectorAll('iframe[data-src]').forEach(f => {
+        f.src = 'about:blank';
       });
-      reset(slides[prevIdx]);
-      reset(slides[idx]);
+      // 들어가는 슬라이드: data-src를 src로 복사 → 영상 로드/재생 시작
+      slides[idx].querySelectorAll('iframe[data-src]').forEach(f => {
+        f.src = f.dataset.src;
+      });
     }
   }
 
